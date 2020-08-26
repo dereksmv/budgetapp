@@ -9,7 +9,7 @@ const path = require('path');
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load Template model
-const budgets = require("../../models/budgets")
+const budgets = require("../../models/Budgets")
 
 
 router.post("/:user_id/new/", (req, res) => {

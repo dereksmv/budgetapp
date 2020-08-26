@@ -106,12 +106,8 @@ class Budgets extends React.Component {
         console.log(newArr)
         console.log(this.state.savedBudgetCategories)
         M.toast({html: `We removed ${e.target.id} from your budget`})
-                /*this.setState({
-                    budgetItems: newArr
-                }, () => {
-                    console.log(this.state)
-                })*/
     }
+
     addFormElement() {
         function setRandomColor() {
             let tagColor= Math.floor(Math.random() * 10);
@@ -156,8 +152,7 @@ class Budgets extends React.Component {
             document.getElementById("custom-list-items").appendChild(listItem);
             document.getElementsByClassName("chip")[this.state.budgetItems.length - 1].appendChild(icon);
           });
-        
-    }
+        document.getElementById("add_item").value = ""    }
 
     handleChange(e) {
         this.setState({
@@ -233,10 +228,12 @@ class Budgets extends React.Component {
           });
           var options = {
               onCloseStart: this.newCategoryObject,
-              onCloseEnd: function() {
+              onOpenStart: function() {
+                  if (document.getElementById("add_item").value !== "") {
                   document.getElementById("current-category").value = ""
                   document.getElementById("add_item").value = ""
-                  document.getElementById("custom-list-items").textContent = ""
+                  
+                  }
               }
     }
 

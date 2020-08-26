@@ -7,10 +7,10 @@ class Landing extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              Build Budgets 
+              Login and Registration Demonstration
             </h4>
             <p className="flow-text grey-text text-darken-1">
-             A fully customizable budgeting software for users of all experience levels. Features include a fully customizable dashboard that allows you to set and track goals, boiler plate budgets for quick starts, and customizable budgets for your specific needs.
+              A minimal mock-up of a functional react app, with login and registration features.
             </p>
             <br />
             <div className="col s6">

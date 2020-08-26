@@ -228,14 +228,12 @@ class Budgets extends React.Component {
           });
           var options = {
               onCloseStart: this.newCategoryObject,
-              onOpenStart: function() {
-                  if (document.getElementById("add_item").value !== "") {
+              onCloseEnd: function() {
                   document.getElementById("current-category").value = ""
-                  document.getElementById("add_item").value = ""
-                  
+                  document.getElementById("add_item").value = "" 
                   }
               }
-    }
+    
 
     
             

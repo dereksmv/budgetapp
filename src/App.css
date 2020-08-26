@@ -1,0 +1,9 @@
+.tabs .tab a {
+    color: rgba(38, 166, 154, 0.7);
+    /*Custom Text Color*/
+  }
+  
+  .tabs .tab a:hover {
+    color:#26a69a;
+    /*Custom Color On Hover*/
+  }

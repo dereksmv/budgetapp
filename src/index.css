@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.tabs .tab a {
+  color: #2979ff
+  /*Custom Text Color*/
+}
+
+.tabs .tab a:hover {
+  color:#1565c0;
+  /*Custom Color On Hover*/
+}
+
+
+.tabs .tab a:active {
+  background-color:#82b1ff;
+  color:#fff;
+} /*Background and text color when a tab is active*/
+
+footer {
+    position: relative;
+    width: 100%;
+    bottom: 0px;
+}

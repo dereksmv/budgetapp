@@ -227,12 +227,8 @@ class Budgets extends React.Component {
             var instances = M.Modal.init(elems, options);
           });
           var options = {
-              onCloseStart: this.newCategoryObject,
-              onCloseEnd: function() {
-                  document.getElementById("current-category").value = ""
-                  document.getElementById("add_item").value = "" 
-                  }
-              }
+              onCloseEnd: this.newCategoryObject,
+          }
     
 
     

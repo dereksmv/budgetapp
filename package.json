@@ -36,9 +36,11 @@
   },
   "scripts": {
     "start": "node server.js",
+    "go": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"nodemon start\" \"npm run go\""
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
@@ -57,6 +59,8 @@
     ]
   },
   "devDependencies": {
-    "case-sensitive-paths-webpack-plugin": "^2.3.0"
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
   }
 }

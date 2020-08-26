@@ -222,6 +222,7 @@ class Budgets extends React.Component {
     
 
     componentDidMount() {
+        M.AutoInit()
         M.updateTextFields()
 
         let {user} = this.props.auth;
@@ -231,7 +232,12 @@ class Budgets extends React.Component {
             var instances = M.Modal.init(elems, options);
           });
           var options = {
-              onCloseStart: this.newCategoryObject
+              onCloseStart: this.newCategoryObject,
+              onCloseEnd: function() {
+                  document.getElementById("current-category").value = ""
+                  document.getElementById("add_item").value = ""
+                  document.getElementById("custom-list-items").textContent = ""
+              }
     }
 
     
@@ -390,7 +396,7 @@ class Budgets extends React.Component {
                                 </div>
                                 
                                 <div className="row">
-                                    <button className="blue btn  accent-3 modal-trigger col s4" href="#add-item-modal">Add Budget Category</button>
+                                    <button className="blue btn  accent-3 modal-trigger col l4 s12" href="#add-item-modal">Add Budget Category</button>
                                 </div>
                                 <div className="row">
                               <div id="template-preview">
@@ -398,7 +404,7 @@ class Budgets extends React.Component {
                             </div>
                                 </div>
                                 <div className="row">
-                                    <button type="submit" className="btn blue accent-3 col s4 modal-trigger" href="#confirm-before-save">Save</button>
+                                    <button type="submit" className="btn blue accent-3 col l4 s12 modal-trigger" href="#confirm-before-save">Save</button>
                                 </div>
                             </form>
                             
@@ -409,7 +415,7 @@ class Budgets extends React.Component {
                     <div class="modal-content">
                         <h4>Add New Category</h4>
                         <p>Enter the name of this Budget Category:</p>
-                        <input type="text"  onChange={this.createNewCategoryTitle} className="active"></input>
+                        <input type="text"  id="current-category" onChange={this.createNewCategoryTitle} className="active"></input>
                         <label>Enter budget items that will appear below this category</label>
                         <p>Type in a budget item and press save to add it to your custom budget template.</p>
                     </div>
@@ -421,7 +427,8 @@ class Budgets extends React.Component {
                             </div>
                             <ul id="custom-list-items" className="collection section">                               
                             </ul>
-                            <input type="submit" className="btn blue accent-3"  value="Save Budget"></input>
+                            <input type="submit" className="btn blue accent-3 col l12 s4"  value="Add item to Category"></input>
+                            <div className="divider"></div>
                    </form>
                    <div class="modal-footer">
       <a href="#!" class="modal-close btn blue accent-3">Save Category to Budget</a>

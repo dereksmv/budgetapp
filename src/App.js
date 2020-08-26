@@ -22,7 +22,7 @@ import budgets from "../src/components/budget/budgets"
 import buildFromTemplate from "../src/components/budget/buildFromTemplate"
 import ViewBudgets from "../src/components/budget/viewBudget"
 import BudgetViewer from "../src/components/budget/budgetViewer"
-
+import M from "materialize-css";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -43,6 +43,10 @@ if (localStorage.jwtToken) {
   }
 }
 class App extends Component {
+
+  componentDidMount() {
+    M.AutoInit();
+  }
   render() {
     return (
       <Provider store={store}>

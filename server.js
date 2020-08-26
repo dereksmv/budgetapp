@@ -8,6 +8,7 @@ const goals = require("./routes/api/goals")
 const templates = require("./routes/api/templates")
 const budgets = require("./routes/api/budgets")
 const path = require("path")
+const favicon = require("serve-favicon")
 
 const dotenv = require("dotenv").config();
 const app = express();
@@ -35,7 +36,9 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 // Routes
 
-app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 
 
 app.use("/api/users", users);

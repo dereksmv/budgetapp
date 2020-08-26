@@ -29,7 +29,8 @@
     "react-scripts": "^3.4.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "node server.js",

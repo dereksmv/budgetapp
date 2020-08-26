@@ -42,6 +42,10 @@ app.get('/', (req,res) =>{
   res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.join(__dirname+'/build/favicon.ico'))
+} )
+
 app.use("/api/users", users);
 
 app.use("/api/networth", debtsAndIncome)

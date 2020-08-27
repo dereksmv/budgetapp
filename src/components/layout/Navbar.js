@@ -13,7 +13,7 @@ class Navbar extends Component {
     <nav>
       <div className="nav-wrapper  z-depth-4 black">
         <Link to="/dashboard" className="brand-logo" style={{marginLeft: "2vw"}}>
-          <i className="material-icons large">apps</i>
+          <i className="material-icons large">home</i>Dashboard
         </Link>
         <ul className="right">
           <li>

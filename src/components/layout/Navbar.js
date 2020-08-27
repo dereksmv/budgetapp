@@ -42,7 +42,7 @@ class Navbar extends Component {
         </Link></li>
         <li class="divider"></li>
   <li><Link to="/edit-profile">
-          <i className="material-icons left">account_box</i>Profile
+          <i className="material-icons left">account_box</i>Edit Profile
         </Link></li>
         <li class="divider"></li>
         <li>

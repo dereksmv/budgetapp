@@ -10,7 +10,6 @@ import accounting from "accounting-js"
 import M from "materialize-css";
 
 class Budgets extends React.Component {
-    
     constructor(props) {
         super(props)
         this.addFormElement = this.addFormElement.bind(this)
@@ -57,7 +56,6 @@ class Budgets extends React.Component {
              })
     }
 
-    
 
     createBudget(e) {
         var arr = [...this.state.budget]
@@ -66,7 +64,7 @@ class Budgets extends React.Component {
             budget: arr,
             [e.target.id]: parseInt((parseFloat((e.target.value)))),
         })
-        var values = document.getElementsByTagName("input") 
+        var values = document.getElementsByTagName("input")
         var sum = 0
         for (var i = 0; i < values.length; i++) {
             if (values[i].name === "standardBudget") {
@@ -86,18 +84,12 @@ class Budgets extends React.Component {
                    }
                }
         }
-    
-    
-
-
-        
-    
 
     handleName(e) {
         this.setState({
             templateName: e.target.value
         })
-    } 
+    }
 
     removeFormElement(e) {
         var newArr = this.state.budgetItems;
@@ -128,7 +120,6 @@ class Budgets extends React.Component {
             } if (tagColor == 8) {
                 return "amber"
             }
-            
             else {
                 return "purple";
             }
@@ -149,8 +140,8 @@ class Budgets extends React.Component {
             listItem.classList.add("white-text")
             icon.id = this.state.modal_text
             listItem.textContent = this.state.budgetItems[this.state.budgetItems.length - 1];
+            listItem.appendChild(icon);
             document.getElementById("custom-list-items").appendChild(listItem);
-            document.getElementsByClassName("chip")[this.state.budgetItems.length - 1].appendChild(icon);
           });
         document.getElementById("add_item").value = ""    }
 
@@ -182,11 +173,14 @@ class Budgets extends React.Component {
     }
 
     newCategoryObject() {
+        console.log("modal closed")
         var arr = [...this.state.budgetItems]
+        console.log(arr)
         var newArr = [...this.state.savedBudgetCategories, {category: this.state.categoryName, categoryBudgetItems: arr}]
         if (document.contains(document.getElementById(`${this.state.categoryName}_list`)) != true && this.state.categoryName != undefined) {
+            console.log()
         this.setState({
-            savedBudgetCategories: newArr        
+            savedBudgetCategories: newArr
         }, () => {
 
          console.log(this.state.savedBudgetCategories)
@@ -200,7 +194,7 @@ class Budgets extends React.Component {
                 listNode.classList.add("s6")
                 listNode.classList.add("row")
                 document.getElementById("template-preview").appendChild(listNode)
-                console.log(this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems.length)    
+                console.log(this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems.length)
                 for (var j = 0; j < this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems.length; j++) {
                         console.log(this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems[j])
                         var li = document.createElement("li")
@@ -208,42 +202,58 @@ class Budgets extends React.Component {
                         li.classList.add("collection-item")
                         listNode.appendChild(li)
                     }
-                
         })
     }
-
-                /*document.getElementById(`${this.state.categoryName}_list`).appendChild("li")*/
-        }
-    
+   }
 
     componentDidMount() {
         M.AutoInit()
         M.updateTextFields()
 
-        let {user} = this.props.auth;
-        M.Tabs.init(this.Tabs);
+        var removeTags = function() {
+                if (document.getElementById("current-category").value != "") {
+                    return false
+                } else {
+                    return true
+                }
+            }
+
+        var budgetCategoryInputIsBlank = removeTags()
+
+        var standIn = () => this.newCategoryObject()
+        var clearModal = () => {
+            this.setState({
+                budgetItems: []
+            })
+            if (budgetCategoryInputIsBlank) {
+                var budgetCategoryInput = document.getElementById("current-category")
+                var fieldWhereTagsGo = document.getElementById("custom-list-items")
+                budgetCategoryInput.value = ""
+                console.log(this.state.budgetItems || "not found")
+                fieldWhereTagsGo.textContent = ""
+                
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            var options = {
+                onCloseEnd: standIn,
+                onOpenStart: clearModal
+              }
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems, options);
-          });
-          var options = {
-              onCloseEnd: this.newCategoryObject,
-          }
-    
+          })
 
-    
-            
-
-        
+        let {user} = this.props.auth;
+        M.Tabs.init(this.Tabs);
         function loadTemplates() {
-            
             const userID = user.id;
             Axios.get(`/api/new-template/retrieve_all/${user.id}`)
                  .then(res => {
-                     console.log(res.data.message.length)
-                     console.log(res.data.message[0])
-                     var list = document.createElement("ul")
-                     document.getElementById("saved-template-list").appendChild(list)
+                     var list = document.createElement("ul");
+                     var idToSearch ="saved-template-list";
+                     var appendingListTo = document.getElementById(idToSearch);
+                     appendingListTo.appendChild(list)
                      for (var i = 0; i < res.data.message.length; i++) {
                          console.log(res.data.message[i].template_name);
                          var anchor = document.createElement("a")
@@ -253,7 +263,7 @@ class Budgets extends React.Component {
                          listItem.id = res.data.message[i]._id
                          anchor.href = `/create/${anchor.id}/${userID}`;
                          anchor.appendChild(listItem)
-                         list.appendChild(anchor)   
+                         list.appendChild(anchor)
                      }
                  })
         }
@@ -267,6 +277,7 @@ class Budgets extends React.Component {
           }
         return (
             <div className="container section">
+                
                 <div className="row">
                         <div>
                             <div>
@@ -402,7 +413,7 @@ class Budgets extends React.Component {
 
                        </div>
                 </div>   
-                <div id="add-item-modal" class="modal">
+                <div id="add-item-modal" className="modal">
                     <div class="modal-content">
                         <h4>Add New Category</h4>
                         <p>Enter the name of this Budget Category:</p>
@@ -422,7 +433,7 @@ class Budgets extends React.Component {
                             <div className="divider"></div>
                    </form>
                    <div class="modal-footer">
-      <a href="#!" class="modal-close btn blue accent-3">Save Category to Budget</a>
+      <a href="#!" class="modal-close btn blue accent-3" onClick={this.newCategoryObject}>Save Category to Budget</a>
     </div>
                                             
                 </div>   

@@ -14,8 +14,6 @@ import Loading from "../layout/Loading"
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-
-    
     this.handleChange = this.handleChange.bind(this);
     this.saveInfo = this.saveInfo.bind(this);
     this.convertToCurrency = this.convertToCurrency.bind(this);

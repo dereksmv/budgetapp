@@ -45,7 +45,7 @@ class Profile extends React.Component {
                                     <span className="card-title black left col l12">Track your net worth</span>
                                 </div>
                                 <div className="card-content">
-                                    As you pay down debt and save and invest more, your net worth will grow. We'll be here to track your journey, soyou can see improvements after each budget session!
+                                    As you pay down debt and save and invest more, your networth will grow. We'll be here to track your journey, so you can see improvements after each budget session!
                                     <br></br><br></br>
                                     <p className="btn">
                                     Track my networth!

@@ -18,7 +18,7 @@ class Navbar extends Component {
         <ul className="right">
           <li>
             <Link to="/edit-profile" className="btn blue accent-3">
-            <i className="tiny material-icons white-text left ">account_box</i>Profile
+            <i className="tiny material-icons white-text left ">account_box</i>Edit Profile
             </Link>
           </li>
           <li>

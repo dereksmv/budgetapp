@@ -49,24 +49,24 @@ class Navbar extends Component {
 
   <ul id="slide-out" className="sidenav">
     <li>
-      <Link to="/dashboard">
+      <Link to="/dashboard" className="sidenav-close">
         <i className="material-icons left">apps</i>Dashboard
       </Link>
     </li>
     <li class="divider"></li>
     <li>
-      <Link to="/edit-profile">
+      <Link to="/edit-profile" className="sidenav-close">
         <i className="material-icons left">account_box</i>Edit Profile
       </Link></li>
     <li class="divider"></li>
     <li>
-      <Link to="/budgets/new">
+      <Link to="/budgets/new" className="sidenav-close">
         <i className=" material-icons left ">create</i>New Budget
       </Link>
     </li>
     <li class="divider"></li>
     <li>
-      <Link to="/budgets">
+      <Link to="/budgets" className="sidenav-close">
         <i className=" material-icons left ">assessment</i>View Budgets
       </Link>
     </li>

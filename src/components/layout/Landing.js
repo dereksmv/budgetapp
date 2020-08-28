@@ -7,10 +7,10 @@ class Landing extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              Login and Registration Demonstration
+              Budget Application
             </h4>
             <p className="flow-text grey-text text-darken-1">
-              A minimal mock-up of a functional react app, with login and registration features.
+              A free, feature-rich budget application that gives users of all experience level complete control over their finances, by tracking networth, setting and reaching goals, and creating customized budgets that fits their specific needs.
             </p>
             <br />
             <div className="col s6">

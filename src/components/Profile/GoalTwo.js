@@ -40,7 +40,7 @@ class GoalTwo extends React.Component {
         formData.append("goal_cost", this.state.goal_cost)
         formData.append("uniqueID", user.id)
         formData.append("goal_images", this.state.file)
-        Axios.post("/api/goals/two"/*, {
+        Axios.post("/api/goals/update-or-create/two"/*, {
             goal_title: this.state.goal1,
             goal_desc: this.state.goal1_desc,
             goal_cost: this.state.goal_cost,

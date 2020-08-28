@@ -27,16 +27,14 @@ cloudinary.config({
   });
   const upload = multer({ storage: storage });  
 
-router.post("/:number", upload.single('goal_images'), (req, res) => {
-  console.log(req.file)
+router.post("/update-or-create/:number", upload.single('goal_images'), (req, res) => {
   const image = {};
   if (req.file) {
   image.url = req.file.url;
   image.id = req.file.public_id;
   }
-  console.log(image.url)
-  goalNumber = req.params.number
-  goalObj = new goals({
+  var goalNumber = req.params.number
+  var goalObj = new goals({
     goal_number: goalNumber,
     goal_title: req.body.goal_title,
     goal_desc: req.body.goal_desc,
@@ -60,6 +58,8 @@ router.post("/:number", upload.single('goal_images'), (req, res) => {
         } if (doc) {
           console.log("User with id " + req.body.uniqueID + " updated their goal " + goalNumber + ". Savings: " + req.body.goal_saved)
           res.json({message: `You updated your goal!`})
+        } else {
+          console.log("here")
         }
       })
       }

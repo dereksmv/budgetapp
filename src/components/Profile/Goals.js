@@ -21,7 +21,7 @@ render() {
                     </div>
                     {/*the form fields*/}
                     <div className="grey container lighten-2 z-depth-4">
-                                  <form className="left-align section" style={{marginTop: "5em"}} onSubmit={this.props.onSubmit} encType="multipart/form-data" action={`/api/goals/${this.props.num}`} method="POST">
+                                  <form className="left-align section" style={{marginTop: "5em"}} onSubmit={this.props.onSubmit} encType="multipart/form-data" action={`/api/goals/update-or-create/${this.props.num}`} method="POST">
                                     <div className="section container">
                                         <div>
                                             <label htmlFor={this.props.goals}>Goal:</label>

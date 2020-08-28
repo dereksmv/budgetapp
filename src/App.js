@@ -22,6 +22,7 @@ import budgets from "../src/components/budget/budgets"
 import buildFromTemplate from "../src/components/budget/buildFromTemplate"
 import ViewBudgets from "../src/components/budget/viewBudget"
 import BudgetViewer from "../src/components/budget/budgetViewer"
+import MobileNav from "../src/components/layout/MobileNav"
 import M from "materialize-css";
 
 // Check for token to keep user logged in
@@ -53,6 +54,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+            <MobileNav/>
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />

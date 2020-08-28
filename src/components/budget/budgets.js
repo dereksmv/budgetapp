@@ -1,12 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom"
 import { logoutUser } from "../../actions/authActions";
 import { Redirect } from "react-router-dom"
 
 import Axios from "axios";
-import accounting from "accounting-js"
 import M from "materialize-css";
 
 class Budgets extends React.Component {
@@ -210,29 +208,18 @@ class Budgets extends React.Component {
         M.AutoInit()
         M.updateTextFields()
 
-        var removeTags = function() {
-                if (document.getElementById("current-category").value != "") {
-                    return false
-                } else {
-                    return true
-                }
-            }
-
-        var budgetCategoryInputIsBlank = removeTags()
-
         var standIn = () => this.newCategoryObject()
         var clearModal = () => {
             this.setState({
                 budgetItems: []
             })
-            if (budgetCategoryInputIsBlank) {
+            
                 var budgetCategoryInput = document.getElementById("current-category")
                 var fieldWhereTagsGo = document.getElementById("custom-list-items")
                 budgetCategoryInput.value = ""
                 console.log(this.state.budgetItems || "not found")
                 fieldWhereTagsGo.textContent = ""
                 
-            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {

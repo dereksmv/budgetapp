@@ -48,11 +48,11 @@ class MobileNav extends Component {
 			    Edit Goals
             </div>
                     <ul id='dropdown1' className='container dropdown-content'>
-                    <li><Link to="/edit-profile/goals/one" className="sidenav-close">Edit Goal One</Link></li>
+                    <Link to="/edit-profile/goals/one" className="sidenav-close"><li>Edit Goal One</li></Link>
                     <li class="divider" tabindex="-1"></li>
-                    <li><Link to="/edit-profile/goals/two" className="sidenav-close">Edit Goal Two</Link></li>
+                    <Link to="/edit-profile/goals/two" className="sidenav-close"><li>Edit Goal Two</li></Link>
                     <li class="divider" tabindex="-1"></li>
-                    <li><Link to="/edit-profile/goals/three" className="sidenav-close">Edit Goal Three</Link></li>
+                    <Link to="/edit-profile/goals/three" className="sidenav-close"><li>Edit Goal Three</li></Link>
                     <li class="divider" tabindex="-1"></li>
             </ul>
 		</div>

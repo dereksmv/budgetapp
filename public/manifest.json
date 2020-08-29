@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Budget App",
+  "name": "Application to meet your exact budgeting and financial planning needs",
   "icons": [
     {
       "src": "favicon.ico",

@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom"
 import Axios from "axios";
 import M from "materialize-css";
 
-class Budgets extends React.Component {
+class createFromStandard extends React.Component {
     constructor(props) {
         super(props)
         this.addFormElement = this.addFormElement.bind(this)
@@ -200,11 +200,34 @@ class Budgets extends React.Component {
                         li.classList.add("collection-item")
                         listNode.appendChild(li)
                     }
+                    this.setState({
+                        budgetItems: []
+                    })
+                    var budgetCategoryInput = document.getElementById("current-category")
+                var fieldWhereTagsGo = document.getElementById("custom-list-items")
+                budgetCategoryInput.value = ""
+                fieldWhereTagsGo.textContent = ""
         })
     }
    }
 
+
+
     componentDidMount() {
+        M.Tabs.init(this.Tabs)
+        if (this.props.match.params.active = "build-from-standard") {
+            document.getElementById("build-from-standard").classList.add("active")
+            
+        } if (this.props.match.params.active = "build-from-template") {
+            
+            document.getElementById("build-from-template").classList.add("active")
+           
+        } if (this.props.match.params.active = "new-template") {document.getElementById("build-from-standard").classList.add("active")
+            
+            document.getElementById("new-template").classList.add("active")
+            
+        }
+
         M.AutoInit()
         M.updateTextFields()
 
@@ -217,10 +240,9 @@ class Budgets extends React.Component {
                 var budgetCategoryInput = document.getElementById("current-category")
                 var fieldWhereTagsGo = document.getElementById("custom-list-items")
                 budgetCategoryInput.value = ""
-                console.log(this.state.budgetItems || "not found")
                 fieldWhereTagsGo.textContent = ""
-                
-        }
+
+    }
 
         document.addEventListener('DOMContentLoaded', function() {
             var options = {
@@ -228,11 +250,11 @@ class Budgets extends React.Component {
                 onOpenStart: clearModal
               }
             var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, options);
+            M.Modal.init(elems, options);
           })
 
         let {user} = this.props.auth;
-        M.Tabs.init(this.Tabs);
+        
         function loadTemplates() {
             const userID = user.id;
             Axios.get(`/api/new-template/retrieve_all/${user.id}`)
@@ -251,6 +273,10 @@ class Budgets extends React.Component {
                          anchor.href = `/create/${anchor.id}/${userID}`;
                          anchor.appendChild(listItem)
                          list.appendChild(anchor)
+                         var budgetCategoryInput = document.getElementById("current-category")
+                         var fieldWhereTagsGo = document.getElementById("custom-list-items")
+                         budgetCategoryInput.value = ""
+                         fieldWhereTagsGo.textContent = ""
                      }
                  })
         }
@@ -262,6 +288,10 @@ class Budgets extends React.Component {
         if (this.state.redirect) {
             return <Redirect to={this.state.redirectLink} />
           }
+
+          console.log(this.props.match.params.active)
+        
+        
         return (
             <div className="container section">
                 
@@ -269,9 +299,9 @@ class Budgets extends React.Component {
                         <div>
                             <div>
                             <ul className="tabs grey lighten-2 col s12" ref={Tabs => {this.Tabs = Tabs;}}>
-                                <li className="tab col s4"><a href="#standard">Build a Budget</a></li>
-                                <li className="tab col s4"><a href="#premade">Build From Template</a></li>
-                                <li className="tab col s4"><a href="#NewTemp">New Template</a></li>
+                                <li className="tab col s4" ><a href="#standard" id="build-from-standard">Build a Budget</a></li>
+                                <li className="tab col s4"><a href="#premade" id="build-from-template">Build From Template</a></li>
+                                <li className="tab col s4"><a href="#NewTemp" id="new-template">New Template</a></li>
                             </ul>
                             </div>
                        </div>
@@ -355,7 +385,7 @@ class Budgets extends React.Component {
                                         <label for="personal">Money that you want to have fun with:</label>
                                     </div>   
                                     </div>   
-                                    <input type="submit" className="btn blue accent-3 col s2" value="save"></input>
+                                    <input type="submit" style={{"margin-bottom": "1.5em"}} className="btn blue accent-3 col l2 s12" value="save"></input>
                                                           
                               </form>
                            </div>
@@ -442,7 +472,7 @@ class Budgets extends React.Component {
     }
 }
 
-Budgets.propTypes = {
+createFromStandard.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
   };
@@ -452,4 +482,4 @@ Budgets.propTypes = {
   export default connect(
     mapStateToProps,
     { logoutUser }
-  )(Budgets);
+  )(createFromStandard);

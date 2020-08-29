@@ -18,12 +18,14 @@ import GoalThree from "./components/Profile/GoalThree"
 import NetworthAssets from "./components/Profile/networth/NetworthAssets"
 import NetworthLiabilities from "./components/Profile/networth/NetworthLiabilities"
 import Loading from "./components/layout/Loading"
-import budgets from "../src/components/budget/budgets"
+import createFromStandard from "./components/budget/createFromStandard"
 import buildFromTemplate from "../src/components/budget/buildFromTemplate"
 import ViewBudgets from "../src/components/budget/viewBudget"
 import BudgetViewer from "../src/components/budget/budgetViewer"
 import MobileNav from "../src/components/layout/MobileNav"
 import M from "materialize-css";
+import createFromTemplate from "../src/components/budget/createFromTemplate"
+import newTemplate from "../src/components/budget/newTemplate"
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -67,7 +69,9 @@ class App extends Component {
               <PrivateRoute exact path="/edit-profile/goals/three" component={GoalThree}/>
               <PrivateRoute exact path="/edit-profile/networth/assets" component={NetworthAssets}/>
               <PrivateRoute exact path="/edit-profile/networth/liabilities" component={NetworthLiabilities}/>
-              <PrivateRoute exact path="/budgets/new" component={budgets}/>
+              <PrivateRoute exact path="/budgets/new/create-from-standard" component={createFromStandard}/>
+              <PrivateRoute exact path="/budgets/new/create-from-template" component={createFromTemplate}/>
+              <PrivateRoute exact path="/budgets/new/new-template" component={newTemplate}/>
               <PrivateRoute path="/create/:_id/:user_id" component ={buildFromTemplate}/>
               <PrivateRoute exact path="/budgets/" component={ViewBudgets}/>
               <PrivateRoute path ="/budgets/view/:user_id/:budget_id" component={BudgetViewer}/>

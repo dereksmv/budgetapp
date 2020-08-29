@@ -22,7 +22,7 @@ class Navbar extends Component {
             </Link>
           </li>
           <li>
-            <Link to="/budgets/new" className="btn blue accent-3">
+            <Link to="/budgets/new/create-from-standard" className="btn blue accent-3">
             <i className="tiny material-icons white-text left ">create</i>New Budget
             </Link>
           </li>

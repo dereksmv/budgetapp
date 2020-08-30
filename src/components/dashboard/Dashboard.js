@@ -307,7 +307,7 @@ render() {
             <div className="white-text container col l12 left-align">
                 
                 <Link to="/edit-profile" className="white-text"><p className="btn col l12"><i className="tiny material-icons white-text">account_box</i> Edit Profile</p></Link>
-                <Link to="/budgets/new" className="white-text"><p className="btn col l12"><i className="tiny material-icons">create</i> Create a Budget</p></Link>
+                <Link to="/budgets/new/create-from-standard" className="white-text"><p className="btn col l12"><i className="tiny material-icons">create</i> Create a Budget</p></Link>
                 <Link to="/budgets"><p className="btn col l12"><i className="tiny material-icons">assessment</i> View Budgets</p></Link>
                 <p className="btn col l12" onClick={this.onLogoutClick}><i className="tiny material-icons">exit_to_app</i> Logout</p>
             </div>

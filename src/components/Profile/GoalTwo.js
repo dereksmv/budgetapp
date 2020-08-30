@@ -5,6 +5,7 @@ import M from "materialize-css"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { Redirect } from "react-router-dom"
 
 
 class GoalTwo extends React.Component {
@@ -29,8 +30,14 @@ class GoalTwo extends React.Component {
     handleClick = e => {
         e.preventDefault();
         let { user } = this.props.auth;
+        if (e.target.value == "Save and Return to Dashboard") {
+            var redirectLink = "/dashboard"
+        } else {
+            redirectLink = "/edit-profile/goals/three"
+        }
         this.setState({
-            buttonText: "Please wait..."
+            buttonText: "Please wait...",
+            redirectLink: redirectLink
         })
 
         var formData = new FormData()
@@ -51,12 +58,13 @@ class GoalTwo extends React.Component {
             
             )
             .then(res => {
-                this.setState({
-                    buttonText: "SUBMIT"
-                })
-                M.toast({ html: res.data.message })
-            })
-        
+                
+                    this.setState({
+                        
+                        redirect: true
+                    })
+                }
+            )
         }
 
     handleChange = e => {
@@ -89,6 +97,9 @@ class GoalTwo extends React.Component {
   
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirectLink} />
+          }
 
         return(
             <div>
@@ -108,6 +119,7 @@ class GoalTwo extends React.Component {
                     goal_descValue={this.state.goal_desc}
                     goal_costValue={this.state.goal_cost}
                     goal_savedValue={this.state.goal_saved}
+                    goal_title = "Two"
                     />
                     </div>
         )

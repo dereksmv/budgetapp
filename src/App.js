@@ -49,6 +49,7 @@ class App extends Component {
 
   componentDidMount() {
     M.AutoInit();
+    M.Modal.init(this.Modal);
   }
   render() {
     return (

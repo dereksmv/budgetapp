@@ -3,9 +3,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom"
 import { logoutUser } from "../../actions/authActions";
+import M from "materialize-css"
+import Modal from "../layout/Modals"
+
 
 class Goals extends Component {
 
+componentDidMount() {
+    M.Modal.init(this.Modal);
+}
 
 render() {
 
@@ -16,7 +22,7 @@ render() {
                     <div className="container section">
                         <div className="blue darken-3 white-text col l12 left-align z-depth-2">
                             <h4><b>Financial Goals</b> Tracker</h4>
-                                <h6>Goal: {this.props.goal_title}</h6>
+                                <h6>Goal {this.props.goal_title}</h6>
                          </div>
                     </div>
                     {/*the form fields*/}
@@ -31,12 +37,12 @@ render() {
                                             <input id={this.props.goal_desc} value={this.props.goal_descValue} name={this.props.goal_desc} placeholder="Enter a description" type="text" datalength="120" className="validate row" required onChange={this.props.onChange}/>
 
                                             <label htmlFor={this.props.goal_cost}>How much will this goal cost you?:</label>                                    
-                                            <input id={this.props.goal_cost} value={this.props.goal_costValue} name={this.props.goal_cost} placeholder="Enter a number" type="text" pattern="[0-9]+" className="validate row" required onChange={this.props.onChange}/>
+                                            <input id={this.props.goal_cost} value={this.props.goal_costValue} name={this.props.goal_cost} placeholder="Enter a number" type="number" min="0" step="0.01" className="validate row" required onChange={this.props.onChange}/>
                                         
 
                                         
                                             <label htmlFor={this.props.goal_saved}>How much do you have saved for this goal?:</label>
-                                            <input id={this.props.goal_saved} value={this.props.goal_savedValue} name={this.props.goal_saved} placeholder="Enter a number" type="text" className="validate row" pattern="[0-9]+" required onChange={this.props.onChange}/>
+                                            <input id={this.props.goal_saved} value={this.props.goal_savedValue} name={this.props.goal_saved} placeholder="Enter a number" type="number" min="0" step="0.01" className="validate row" pattern="[0-9]+" required onChange={this.props.onChange}/>
                                             
                                         </div>
                                         <div className="row">
@@ -45,7 +51,7 @@ render() {
                                             <label id={this.props.goal_img} htmlFor={this.props.goal_img}>Upload an image for this goal:</label>
                                             <div className="file-field input-field">
                                             <div className="btn blue accent-3">
-                                                <span>File</span>
+                                                <span>Browse</span>
                                                 <input type="file" onChange={this.props.onChangeFile} name="goal_images"/>
                                             </div>
                                             <div className="file-path-wrapper">
@@ -54,9 +60,13 @@ render() {
                                         </div>      
                                         <div className="section">
                                             <h6>You must press "submit" to save your goals on each page.</h6>
-                                            <button className="btn hoverable blue accent-3" type="submit" name="goal_images">{this.props.buttonText}
-                                                <i className="material-icons right">send</i>
-                                            </button>
+                                            <Modal
+                                                buttonText = {this.props.buttonText}
+                                                goal_title = {this.props.goal_title}
+                                                nextGoal = {this.props.nextGoal}
+                                                onSubmit = {this.props.onSubmit}
+                                            ></Modal>
+                                            
                                         
                                         </div>
                                         </div>

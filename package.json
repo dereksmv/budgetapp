@@ -40,7 +40,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"nodemon start\" \"npm run go\""
+    "dev": "concurrently \"nodemon start\" \"nodemon run go\""
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {

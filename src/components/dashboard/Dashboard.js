@@ -70,6 +70,18 @@ class Dashboard extends React.Component {
  
 
   handleChange = e => {
+    if (e.target.id === "income") {
+      var button = document.getElementById("income-button")
+      
+    } if (e.target.id === "debt") {
+
+        button = document.getElementById("debt-button")
+      } if (e.target.id === "savings") {
+        button = document.getElementById("savings-button")
+      }
+    
+    button.classList.remove("disabled")
+
      this.setState({
        [e.target.id]: accounting.formatMoney(e.target.value),
      })
@@ -78,6 +90,7 @@ class Dashboard extends React.Component {
         dollarSign: "",
         [e.target.id]: `Enter your ${e.target.id}`
       })
+      button.classList.add("disabled")
      }
   }
 
@@ -85,16 +98,21 @@ class Dashboard extends React.Component {
     let { user } = this.props.auth;
     if (entryItem === "income") {
       M.toast({html: 'We updated your monthly income!', classes: "blue accent-3 flow-text"})
-      return Axios.post(url, {uniqueID: user.id, income: this.state.income});
+
+      Axios.post(url, {uniqueID: user.id, income: this.state.income});
+      document.getElementById("income-button").classList.add("disabled")
       
     }
     if (entryItem === "debt") {
       M.toast({html: 'We updated your household debts!', classes: "blue accent-3 flow-text"})
-      return Axios.post(url, {uniqueID: user.id, debt: this.state.debt})
+      
+      Axios.post(url, {uniqueID: user.id, debt: this.state.debt})
+      document.getElementById("debt-button").classList.add("disabled")
     }
-    else {
+    if (entryItem === "savings") {
       M.toast({html: 'We updated your household savings!', classes: "blue accent-3 flow-text"})
-      return Axios.post(url, {uniqueID: user.id, savings: this.state.savings})
+      Axios.post(url, {uniqueID: user.id, savings: this.state.savings})
+      document.getElementById("savings-button").classList.add("disabled")
     }
   }
 
@@ -376,8 +394,8 @@ render() {
           <h6>Household Monthly Income:</h6> 
           <p className="flow-text">{this.state.dollarSign}{this.state.income}</p>
           <form onSubmit={e => {e.preventDefault(); this.saveInfo("/api/networth/dashboard/income", "income")}}>
-            <input placeholder="Update your income" id="income" type="number" className="validate" onChange={this.handleChange}/>
-            <button className="btn waves-effect waves-light" type="submit" name="action">Save
+            <input placeholder="Update your income" id="income" type="number" step="0.01" className="validate" name="incomeForm" onChange={this.handleChange}/>
+            <button className="btn disabled" type="submit" name="action" id="income-button">Save
               <i className="material-icons right">send</i>
             </button>
           </form>
@@ -388,8 +406,8 @@ render() {
           <h6>Household Debts:</h6> 
           <p className="flow-text">{this.state.dollarSign}{this.state.debt}</p>
           <form onSubmit={e => {e.preventDefault(); this.saveInfo("/api/networth/dashboard/debt", "debt")}}>
-          <input placeholder="Update your debts" id="debt" type="number" className="validate" onChange={this.handleChange}/>
-          <button className="btn waves-effect waves-light" type="submit" name="action">Save
+          <input placeholder="Update your debts" id="debt" type="number" step="0.01" className="validate" onChange={this.handleChange}/>
+          <button className="btn disabled" type="submit" name="action" id="debt-button">Save
             <i className="material-icons right">send</i>
           </button>
           </form>
@@ -400,8 +418,8 @@ render() {
           <h6>Household Savings:</h6> 
           <p className="flow-text">{this.state.dollarSign}{this.state.savings}</p>
           <form onSubmit={e => {e.preventDefault(); this.saveInfo("/api/networth/dashboard/savings", "savings")}}>
-          <input placeholder="Update your savings" id="savings" type="number" className="validate" onChange={this.handleChange}/>
-          <button className="btn waves-effect waves-light" type="submit" name="action">Save
+          <input placeholder="Update your savings" id="savings" type="number" step="0.01" className="validate" onChange={this.handleChange}/>
+          <button className="btn disabled" type="submit" name="action" id="savings-button">Save
             <i className="material-icons right">send</i>
           </button>
           </form>

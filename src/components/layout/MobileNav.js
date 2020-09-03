@@ -80,9 +80,9 @@ class MobileNav extends Component {
 			    Edit Networth
             </div>
                     <ul id='dropdown2' class='dropdown-content'>
-                    <li><Link to="/edit-profile/networth/assets" className="sidenav-close">Edit Assets</Link></li>
+                    <Link to="/edit-profile/networth/assets" className="sidenav-close"><li>Edit Assets</li></Link>
                     <li class="divider" tabindex="-1"></li>
-                    <li><Link to="/edit-profile/networth/liabilities" className="sidenav-close">Edit Liabilities</Link></li>
+                    <Link to="/edit-profile/networth/liabilities" className="sidenav-close"><li>Edit Liabilities</li></Link>
             </ul>
 		</div>
 			

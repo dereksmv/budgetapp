@@ -9,6 +9,25 @@ const dotenv = require("dotenv").config();
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
+const path = require('path');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+  });
+  const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "demo",
+  allowedFormats: ["jpg", "png"],
+  transformation: [{ width: 500, height: 500, crop: "limit" }]
+  });
+  const upload = multer({ storage: storage }); 
+
 // Load User model
 const User = require("../../models/User");
 
@@ -95,5 +114,26 @@ router.post("/login", (req, res) => {
       });
     });
   });
+
+  router.post("/profile_picture/update", upload.single('profile-image'), (req, res) => {
+    User.updateOne({ _id: req.body.uniqueID }, {$set: { profilePicture: req.file.url }}, (err, updated) => {
+      if (err) {
+        console.log(err)
+      } if (updated) {
+        res.json({ message: "You successfully updated your profile picture", image_url: req.file.url })
+      }
+    })
+  })
+
+  router.get("/:userid/profile-picture/", (req, res) => {
+    console.log("ping")
+      User.findOne({ _id: req.params.userid }, (err, doc) => {
+        if (err) {
+          console.log(err)
+        } if (doc) {
+          res.json({ image_url: doc.profilePicture })
+        }
+      })
+  } )
 
   module.exports = router;

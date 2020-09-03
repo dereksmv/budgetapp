@@ -5,6 +5,7 @@ import M from "materialize-css"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
+import { Redirect } from "react-router-dom"
 
 class NetworthLiabilities extends React.Component {
 
@@ -23,16 +24,31 @@ class NetworthLiabilities extends React.Component {
         this.setState({
             uniqueID: user.id
         })
+
+        Axios.get(`/api/networth/${user.id}/liabilities`)
+             .then(res => {
+                 if (res.data._id) {
+                     this.setState(
+                         res.data
+                     )
+                 }
+             })
     }
 
     handleClick = e => {
         e.preventDefault()
+        if (e.target.value == "Save and Return to Dashboard") {
+            var redirectLink = "/dashboard"
+        } else {
+            redirectLink = "/edit-profile/networth/assets"
+        }
         const { user } = this.props.auth;
         console.log(user.id)
         console.log(this.state.type)
         this.setState({
             uniqueID: user.id, 
-            type: "liabilities"
+            type: "liabilities",
+            redirectLink: redirectLink
         })
         console.log(this.state)
         
@@ -40,7 +56,9 @@ class NetworthLiabilities extends React.Component {
 
              .then(res => {
 
-                 M.toast({html: res.data.message})
+                this.setState({
+                    redirect: true
+                })
              })
     }
 
@@ -55,8 +73,12 @@ class NetworthLiabilities extends React.Component {
 
     
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirectLink} />
+          }
         return (
             <div>
+
                 <TwoColumnForm
                     onChange={this.handleChange}
                     onSubmit={this.handleClick}
@@ -79,6 +101,17 @@ class NetworthLiabilities extends React.Component {
                     input7="other_liabilities"
                     url_back="/edit-profile/networth/assets"
                     active2="active blue accent-3"
+                    initialVal1 = {this.state.mortgages}
+                    initialVal2 = {this.state.consumer_debt}
+                    initialVal3 = {this.state.personal_loans}
+                    initialVal4 = {this.state.student_loans}
+                    initialVal5 = {this.state.medical_debt}
+                    initialVal6 ={this.state.vehicle_loans}
+                    initialVal7 = {this.state.other_liabilities}
+                    form_message="Please save your liabilities"
+                    networthType = "Liabilities"
+                    otherType = "assets"
+                    onSubmit = {this.handleClick}
                 />
             </div>
         )

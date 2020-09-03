@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 var ObjectID = require('mongodb').ObjectId;
 
-// Load input validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+
 
 //Load the schema for our user's debts and income
 const debtsAndIncome = require("../../models/DebtsAndIncome")
 const assets = require("../../models/Assets")
-const liabilties = require("../../models/Liabilties")
+const liabilities = require("../../models/Liabilties")
 
 router.post("/dashboard/:button_num", (req, res) => {
     var button_num = req.params.button_num;
@@ -149,20 +145,20 @@ router.post("/update/", function(req, res) {
         })
     }})
 }else {
-    liabilties.findOne({uniqueID: liabilityData.uniqueID}, function(err, doc) {
+    liabilities.findOne({uniqueID: liabilityData.uniqueID}, function(err, doc) {
         if (err) {
             console.log(err)
             res.json({message: "Oops! Something went wrong!"})
         }
         //found the doc, now we update it
         if (doc) {
-            liabilties.updateOne({uniqueID: liabilityData.uniqueID}, {$set: req.body}, function(err, updated) {
+            liabilities.updateOne({uniqueID: liabilityData.uniqueID}, {$set: req.body}, function(err, updated) {
                 if (err) {
                     console.log(err)
                     res.json({message: "Oops! Something went wrong"})
                 } if (updated) {
                     console.log(`Updated record for user with id ${req.body.uniqueID}`)
-                    res.json({message: "Updated your assets!"})
+                    res.json({message: "Updated your liabilities!"})
                 }
             });
 
@@ -204,7 +200,7 @@ router.get("/asset/total/:user_id", function(req, res) {
             res.json({assetTotal: +found.Real_Estate + +found.checking + +found.asset_savings + +found.retirement + +found.investments + +found.vehicles + +found.other_assets})
         }   
         else {
-            res.json({networth: "Enter your assetts and liabilities!"})
+            res.json({networth: "Enter your assets and liabilities!"})
         }
      })
 })

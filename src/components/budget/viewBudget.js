@@ -35,7 +35,7 @@ class ViewBudgets extends React.Component {
               .then(res => {
                 console.log(res.data)
               if(res.data.length > 0) {
-
+                res.data.reverse()
                 for (var i = 0; i < res.data.length; i++){
                   console.log(res.data[i].date)   
                   if (ordered.includes(res.data[i].date) && document.getElementById(res.data[i].date) == null)  {

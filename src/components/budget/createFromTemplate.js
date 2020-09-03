@@ -171,10 +171,20 @@ class createFromTemplate extends React.Component {
     }
 
     newCategoryObject() {
+        if (this.state.categoryName == undefined) {
+           return M.toast({html: "We didn't save this category. Add category title to save"})
+        }
         console.log("modal closed")
         var arr = [...this.state.budgetItems]
+
+
         console.log(arr)
         var newArr = [...this.state.savedBudgetCategories, {category: this.state.categoryName, categoryBudgetItems: arr}]
+        if (this.state.budgetItems.length < 1) {
+            return M.toast({
+                html: "We didn't save this category. Add budget items to save."
+            })
+        }
         if (document.contains(document.getElementById(`${this.state.categoryName}_list`)) != true && this.state.categoryName != undefined) {
             console.log()
         this.setState({
@@ -199,19 +209,20 @@ class createFromTemplate extends React.Component {
                         li.innerHTML = this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems[j];
                         li.classList.add("collection-item")
                         listNode.appendChild(li)
-                    
-                        
                     }
-                    this.setState({
-                        budgetItems: []
-                    })
-                    var budgetCategoryInput = document.getElementById("current-category")
-                var fieldWhereTagsGo = document.getElementById("custom-list-items")
-                budgetCategoryInput.value = ""
-                fieldWhereTagsGo.textContent = ""
+                   
         })
     }
+    this.setState({
+        budgetItems: [],
+        categoryName: undefined
+    })
+    var budgetCategoryInput = document.getElementById("current-category")
+var fieldWhereTagsGo = document.getElementById("custom-list-items")
+budgetCategoryInput.value = ""
+fieldWhereTagsGo.textContent = ""
    }
+
 
 
 
@@ -440,7 +451,7 @@ class createFromTemplate extends React.Component {
                             <div className="divider"></div>
                    </form>
                    <div class="modal-footer">
-      <a href="#!" class="modal-close btn blue accent-3" onClick={this.newCategoryObject}>Save Category to Budget</a>
+      <a href="#!" class="modal-close btn blue accent-3">Save Category to Budget</a>
     </div>
                                             
                 </div>   

@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
       goal2_img: "https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale",
       goal3: "Enter a goal in your profile!",
       goal3_desc: "Add a short description of your goal! We'll tell you how close you are to reaching your goal!",
-      goal3_img: "https://robbreportedit.files.wordpress.com/2016/04/01-ford-gt-front-three-quarter1.jpg",
+      goal3_img: "https://www.teslarati.com/wp-content/uploads/2019/07/tesla-model-s-raven-2.jpg",
       income: "Enter your income",
       debt: "Enter your debts",
       savings: "Enter your savings",
@@ -118,6 +118,14 @@ class Dashboard extends React.Component {
 
 componentDidMount() {
   let { user } = this.props.auth;
+  Axios.get(`/api/users/${user.id}/profile-picture`)
+             .then(res => {
+                 if (res.data.image_url) {
+                     this.setState({
+                        profile_img: <img src={res.data.image_url} className="circle responsive-img" style={{"width": "150px", "height": "150px"}} />
+                     })
+                 }
+             })
 
   Axios.get(`/api/networth/dashboard-display/${user.id}`)
        .then(res => {
@@ -300,7 +308,7 @@ render() {
           <div className="row">
         <div className="col l2 m12 blue accent-3 hide-on-med-and-down z-depth-5" style={{height: "100%", position: "fixed"}}>
           <div className="container center-align">
-          <div className="section center-align">{this.state.profile_img}</div>
+          <div className="section center-align"><Link to="/edit-profile">{this.state.profile_img}</Link></div>
           <p className="white-text center-align flow-text">{user.name}</p>
           <div className="divider"></div>
           </div>

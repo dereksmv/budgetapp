@@ -17,6 +17,11 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  profilePicture: {
+    type: String,
+    required: false
   }
+
 });
 module.exports = User = mongoose.model("users", UserSchema);

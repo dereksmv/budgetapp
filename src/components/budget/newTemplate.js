@@ -171,10 +171,20 @@ class newTemplate extends React.Component {
     }
 
     newCategoryObject() {
+        if (this.state.categoryName == undefined) {
+           return M.toast({html: "We didn't save this category. Add category title to save"})
+        }
         console.log("modal closed")
         var arr = [...this.state.budgetItems]
+
+
         console.log(arr)
         var newArr = [...this.state.savedBudgetCategories, {category: this.state.categoryName, categoryBudgetItems: arr}]
+        if (this.state.budgetItems.length < 1) {
+            return M.toast({
+                html: "We didn't save this category. Add budget items to save."
+            })
+        }
         if (document.contains(document.getElementById(`${this.state.categoryName}_list`)) != true && this.state.categoryName != undefined) {
             console.log()
         this.setState({
@@ -199,18 +209,20 @@ class newTemplate extends React.Component {
                         li.innerHTML = this.state.savedBudgetCategories[this.state.savedBudgetCategories.length - 1].categoryBudgetItems[j];
                         li.classList.add("collection-item")
                         listNode.appendChild(li)
-                    
                     }
-                    this.setState({
-                        budgetItems: []
-                    })
-                    var budgetCategoryInput = document.getElementById("current-category")
-                var fieldWhereTagsGo = document.getElementById("custom-list-items")
-                budgetCategoryInput.value = ""
-                fieldWhereTagsGo.textContent = ""
+                   
         })
     }
+    this.setState({
+        budgetItems: [],
+        categoryName: undefined
+    })
+    var budgetCategoryInput = document.getElementById("current-category")
+var fieldWhereTagsGo = document.getElementById("custom-list-items")
+budgetCategoryInput.value = ""
+fieldWhereTagsGo.textContent = ""
    }
+
 
 
 
@@ -423,7 +435,7 @@ class newTemplate extends React.Component {
                     <div class="modal-content">
                         <h4>Add New Category</h4>
                         <p>Enter the name of this Budget Category:</p>
-                        <input type="text"  id="current-category" onChange={this.createNewCategoryTitle} className="active"></input>
+                        <input type="text"  id="current-category" onChange={this.createNewCategoryTitle} className="active" required></input>
                         <label>Enter budget items that will appear below this category</label>
                         <p>Type in a budget item and press save to add it to your custom budget template.</p>
                     </div>
@@ -437,10 +449,12 @@ class newTemplate extends React.Component {
                             </ul>
                             <input type="submit" className="btn blue accent-3 col l12 s4"  value="Add item to Category"></input>
                             <div className="divider"></div>
-                   </form>
+                   
                    <div class="modal-footer">
-      <a href="#!" class="modal-close btn blue accent-3" onClick={this.newCategoryObject}>Save Category to Budget</a>
-    </div>
+      <a href="#!" class="modal-close btn blue accent-3">Save Category to Budget</a>
+      </div>
+      </form>
+    
                                             
                 </div>   
                 <div id="confirm-before-save"  className="modal">

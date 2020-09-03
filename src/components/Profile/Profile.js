@@ -3,17 +3,78 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 class Profile extends React.Component {
+ constructor(props) {
+     super(props)
+     this.state = {
+        profilePicture: <i className="large material-icons">account_circle</i>
+     }
+     this.submitProfilePic = this.submitProfilePic.bind(this);
+
+ }
+
+    componentDidMount() {
+        const { user } = this.props.auth;
+        Axios.get(`/api/users/${user.id}/profile-picture`)
+             .then(res => {
+                 if (res.data.image_url) {
+                     this.setState({
+                        profilePicture: <img src={res.data.image_url} className="circle responsive-img" style={{"width": "300px", "height": "300px"}} />
+                     })
+                 }
+             })
+    }
+
+    submitProfilePic = e => {
+        e.preventDefault()
+        const { user } = this.props.auth;
+        var file = document.getElementById("file-input").files[0]
+        console.log(file)
+        var formData = new FormData()
+        formData.append('profile-image', file)
+        formData.append("uniqueID", user.id)
+        Axios.post("/api/users/profile_picture/update", formData, {headers: {'Content-type': 'multipart/form-data'}})
+             .then(res => {
+                 this.setState({
+                     profilePicture: <img src={res.data.image_url} className="circle responsive-img" style={{"width": "200px"}} />
+                 })
+             })
+             window.location.reload(true);
+    }
+
+
+
+
     render() {
         const { user } = this.props.auth;
         return(
             <div>
                 <div className="grey lighten-2 section center-align z-depth-3">
-                    <h4>{user.name.split(" ")[0]}'s Profile</h4>
+                    <div className="row">
+                    {this.state.profilePicture}
+                <h4>{user.name.split(" ")[0]}'s Profile</h4>
+                </div>
+                </div>
+                <div className="container section">
+                    <h4>Edit Profile Picture</h4>
+                    <form onSubmit={this.submitProfilePic}>
+                        <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Browse</span>
+                            <input type="file" name="profile-pic" id="file-input"/>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text"/>
+                        </div>
+                        </div>
+                        <input type="submit" className="btn" value="Save"/>
+                    </form>
                 </div>
                 <div className="section grey lighten-4 row">
                     <div className="container">
+        <h4>{user.name}'s Networth</h4>
                     <div className="col l6">
                         <Link to="/edit-profile/goals/one" className="black-text">
                         <div>

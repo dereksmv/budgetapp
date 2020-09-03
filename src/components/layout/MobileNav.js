@@ -3,11 +3,30 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom"
 import M from "materialize-css"
+import Axios from "axios"
 
 
 class MobileNav extends Component {
+  constructor(props) {
+    super(props) 
+      this.state = {
+        profile_img: <i className="large material-icons">account_circle</i>
+    }
+  }
+
+  
   
   componentDidMount() {
+    let { user } = this.props.auth;
+    Axios.get(`/api/users/${user.id}/profile-picture`)
+    .then(res => {
+        if (res.data.image_url) {
+            this.setState({
+               profile_img: <img src={res.data.image_url} className="circle responsive-img" style={{"width": "150px", "height": "150px"}} />
+            })
+        }
+    })
+    
 
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.collapsible');
@@ -33,7 +52,7 @@ class MobileNav extends Component {
 <div className="hide-on-large-only">
     
   <ul id="slide-out" className="sidenav collapsible">
-  <div className="section center-align row"><i className="large material-icons">account_circle</i></div>
+    <Link to="/edit-profile" className="black-text sidenav-close"><div className="section center-align row">{this.state.profile_img}</div></Link>
     <h5 className="center-align row">{user.name}</h5>
     <li>
       <Link to="/dashboard" className="sidenav-close">

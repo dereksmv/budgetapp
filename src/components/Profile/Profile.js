@@ -70,8 +70,10 @@ class Profile extends React.Component {
                         </div>
                         </div>
                         <input type="submit" className="btn" value="Save"/> 
+                        <div className="hide-on-large-screen-only">
                         <h5>To see changes across the application, refresh the page</h5>
                         <button className="btn" onClick={() => window.location.reload(false)}><i className="material-icons left" >refresh</i>Refresh</button>
+                        </div>
                     </form>
                    
                 </div>

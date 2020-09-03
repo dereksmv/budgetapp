@@ -41,7 +41,7 @@ class Profile extends React.Component {
                      profilePicture: <img src={res.data.image_url} className="circle responsive-img" style={{"width": "200px"}} />
                  })
              })
-             window.location.reload(true);
+    
     }
 
 
@@ -69,8 +69,11 @@ class Profile extends React.Component {
                             <input class="file-path validate" type="text"/>
                         </div>
                         </div>
-                        <input type="submit" className="btn" value="Save"/>
+                        <input type="submit" className="btn" value="Save"/> 
+                        <h5>To see changes across the application, refresh the page</h5>
+                        <button className="btn" onClick={() => window.location.reload(false)}><i className="material-icons left" >refresh</i>Refresh</button>
                     </form>
+                   
                 </div>
                 <div className="section grey lighten-4 row">
                     <div className="container">
